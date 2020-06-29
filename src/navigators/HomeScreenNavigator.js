@@ -6,20 +6,20 @@ import AddPostScreen from '../screens/AddPostScreen';
 
 const Stack = createStackNavigator();
 
-export default function HomeNavigation() {
+export default function HomeScreenNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerTintColor: "red",
       }}
     >
       <Stack.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
       />
       <Stack.Screen
-        name="AddPost"
+        name="AddPostScreen"
         component={AddPostScreen}
       />
     </Stack.Navigator>

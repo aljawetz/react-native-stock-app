@@ -1,115 +1,139 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button } from 'react-native-paper';
-import { AppStyles } from '../AppStyles';
+import React, { useState } from 'react';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Styles } from '../Styles';
 
-import { AuthContext } from '../../App'
 import signInWithGoogleAsync from '../services/GoogleAuth';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [errorMessage, setErrorMessage] = React.useState(false);
-  const { signIn } = React.useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  function onLoginWithEmail() {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(error => setErrorMessage(error))
+  function handleLogin() {
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(error => setErrorMessage(error.message));
   }
 
+  function handleRegister() {
+    navigation.navigate('RegisterScreen');
+  }
 
   function onLoginWithGoogle() {
     if (signInWithGoogleAsync) {
-      signIn({ username, password });
+      navigation.navigate('HomeNavigator');
     } else
-      navigation.navigate('Signup');
+      navigation.navigate('RegisterScreen');
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.title, styles.leftTitle]}>Login</Text>
-      <View style={styles.InputContainer}>
-        <TextInput
-          style={styles.body}
-          placeholder="username"
-          value={username}
-          onChangeText={setUsername}
-          placeholderTextColor={AppStyles.color.grey}
-          underlineColorAndroid="transparent"
-        />
-      </View>
-      <View style={styles.InputContainer}>
-        <TextInput
-          style={styles.body}
-          secureTextEntry
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          placeholderTextColor={AppStyles.color.grey}
-          underlineColorAndroid="transparent"
-        />
-      </View>
-      {errorMessage && <Text style={{ color: "red" }}>{errorMessage}</Text>}
-      <Button
-        style={styles.button}
-        mode="contained"
-        onPress={onLoginWithEmail}>
-        Log in
-      </Button>
-      <Text>OR</Text>
-      <Button
-        style={styles.button}
-        mode="contained"
-        onPress={() => signIn({ username, password })}>
-        Login with Facebook
-      </Button>
-      <Button
-        style={styles.button}
-        mode="contained"
-        onPress={onLoginWithGoogle}>
-        Login with Google
-      </Button>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+
+        <Text style={styles.title}>Welcome to the App</Text>
+
+        <View style={styles.errorMessageContainer}>
+          {errorMessage && <Text style={styles.errorMessageText}>{errorMessage}</Text>}
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputTitle}>Email:</Text>
+          <TextInput
+            keyboardType='email-address'
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputTitle}>Password:</Text>
+          <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.registerContainer} onPress={handleRegister}>
+          <Text style={styles.registerText}>
+            New to the App? <Text style={styles.registerHighlight}>Register</Text>
+          </Text>
+        </TouchableOpacity>
+
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    alignItems: 'center',
+    justifyContent: 'center',
   },
+
   title: {
-    fontSize: AppStyles.fontSize.title,
-    fontWeight: 'bold',
-    color: AppStyles.color.tint,
-    marginTop: 20,
-    marginBottom: 20,
+    fontSize: 18,
+    fontWeight: '400',
+    textAlign: 'center',
   },
-  leftTitle: {
-    alignSelf: 'stretch',
-    textAlign: 'left',
-    marginLeft: 20,
-  },
-  InputContainer: {
-    width: AppStyles.textInputWidth.main,
+
+  errorMessageContainer: {
+    marginHorizontal: 20,
     marginTop: 30,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: AppStyles.color.grey,
-    borderRadius: AppStyles.borderRadius.main,
   },
-  body: {
-    height: 42,
-    paddingLeft: 20,
-    paddingRight: 20,
-    color: AppStyles.color.text,
+
+  errorMessageText: {
+    textAlign: 'center',
+    color: 'red',
+    fontSize: 12,
   },
-  button: {
-    margin: 5,
-    backgroundColor: "blue",
-    elevation: 8,
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+
+  inputContainer: {
+    marginTop: 30,
+    marginHorizontal: 30,
   },
-});
+  inputTitle: {
+    color: '#8A8F9E',
+    fontSize: 10,
+    textTransform: 'uppercase',
+  },
+  input: {
+    borderBottomColor: '#8A8F9E',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    height: 40,
+    fontSize: 15,
+    color: '#161F3D',
+  },
+
+  buttonContainer: {
+    marginTop: 30,
+    marginHorizontal: 30,
+    backgroundColor: '#E9446A',
+    borderRadius: 4,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFF',
+    fontWeight: '500',
+  },
+
+  registerContainer: {
+    alignSelf: 'center',
+    marginTop: 32,
+  },
+  registerText: {
+    color: '#414959',
+    fontSize: 13,
+  },
+  registerHighlight: {
+    fontWeight: '500',
+    color: '#E9446A',
+  },
+})

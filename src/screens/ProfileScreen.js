@@ -1,36 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { Avatar } from 'react-native-paper';
-import { AuthContext } from '../../App';
-import firebase, { database } from 'firebase';
 
+import firebase from 'firebase';
 
 const userImage = require('../../assets/profile.jpg');
-const backgroundImage = require('../../assets/background.jpg');
-const userName = '@arthur';
 
-export default function Profile() {
-  const { signOut } = React.useContext(AuthContext);
+export default function Profile({ navigation }) {
+  const [displayName, setDisplayName] = useState('');;
+  const [email, setEmail] = useState('');
+  const [photoURL, setPhotoURL] = useState('');
 
+  useEffect(() => {
+    const { displayName, email, photoURL } = firebase.auth().currentUser;
 
-  database()
-    .ref('/users/123')
-    .once('value')
-    .then(snapshot => {
-      console.log('User data: ', snapshot.val());
-    });
+    setDisplayName(displayName);
+    setEmail(email);
+    setPhotoURL(photoURL);
+  }, []);
+
+  function handleSignOut() {
+    firebase.auth().signOut();
+    navigation.navigate('LoginNavigator');
+  }
 
   return (
     <View style={styles.container}>
-      <Image
-        source={backgroundImage}
-        style={styles.backgroundImage}
-      />
-      <Avatar.Image source={userImage} />
 
-      <Text style={styles.userName}>{userName}</Text>
-      <Button title="Sign out" onPress={signOut} />
-      <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
+      <Avatar.Image source={photoURL || userImage} />
+      <Text style={styles.userName}>Hello, {displayName}</Text>
+      <Text style={styles.userName}>{email}</Text>
+      <Button title="Sign out" onPress={handleSignOut} />
     </View>
   );
 }

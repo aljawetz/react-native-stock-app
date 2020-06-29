@@ -11,7 +11,7 @@ export default function Home({ navigation }) {
       <Post />
       <Button
         mode="contained"
-        onPress={() => navigation.navigate('AddPost')}>
+        onPress={() => navigation.navigate('AddPostScreen')}>
         Add post
       </Button>
     </ScrollView>

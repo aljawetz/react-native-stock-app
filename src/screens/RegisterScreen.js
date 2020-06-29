@@ -1,105 +1,117 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button } from 'react-native-paper';
-import { AppStyles } from '../AppStyles';
-import firebase from 'firebase';
+import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Styles } from '../Styles';
+import * as firebase from 'firebase';
 
 export default function RegisterScreen({ navigation }) {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   function handleRegister() {
     firebase.auth().createUserWithEmailAndPassword(email, password).then(userCredentials => {
       return userCredentials.user.updateProfile({
-        displayName: username
+        displayName: name
       });
     })
-      .catch(error => setError(error));
+      .catch(error => setErrorMessage(error.message));
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.title, styles.leftTitle]}>Create new account</Text>
-      <View style={styles.InputContainer}>
-        <TextInput
-          style={styles.body}
-          placeholder="username"
-          value={username}
-          onChangeText={setUsername}
-          placeholderTextColor={AppStyles.color.grey}
-          underlineColorAndroid="transparent"
-        />
-      </View>
-      <View style={styles.InputContainer}>
-        <TextInput
-          style={styles.body}
-          placeholder="email"
-          value={email}
-          onChangeText={email}
-          placeholderTextColor={AppStyles.color.grey}
-          underlineColorAndroid="transparent"
-        />
-      </View>
-      <View style={styles.InputContainer}>
-        <TextInput
-          style={styles.body}
-          placeholder="password"
-          value={password}
-          onChangeText={setPassword}
-          placeholderTextColor={AppStyles.color.grey}
-          underlineColorAndroid="transparent"
-          secureTextEntry
-        />
-      </View>
-      <Button
-        style={styles.button}
-        mode="contained"
-        onPress={handleRegister}>
-        Sign Up
-      </Button>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+        <Text style={styles.title}>Hi! Register to get started</Text>
+
+        <View style={styles.errorMessageContainer}>
+          {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputTitle}>Email:</Text>
+          <TextInput
+            keyboardType='email-address'
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputTitle}>name:</Text>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={setName}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputTitle}>Password:</Text>
+          <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
-
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    alignItems: 'center',
   },
   title: {
-    fontSize: AppStyles.fontSize.title,
-    fontWeight: 'bold',
-    color: "blue",
     marginTop: 20,
-    marginBottom: 20,
+    fontSize: 18,
+    fontWeight: '400',
+    textAlign: 'center',
   },
-  leftTitle: {
-    alignSelf: 'stretch',
-    textAlign: 'left',
-    marginLeft: 20,
+
+  errorMessageContainer: {
+    marginTop: 10,
   },
-  InputContainer: {
-    width: AppStyles.textInputWidth.main,
+  errorMessage: {
+    textAlign: 'center',
+    color: 'red',
+    fontSize: 10,
+  },
+
+  inputContainer: {
     marginTop: 30,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: AppStyles.color.grey,
-    borderRadius: AppStyles.borderRadius.main,
+    marginHorizontal: 30,
   },
-  body: {
-    height: 42,
-    paddingLeft: 20,
-    paddingRight: 20,
-    color: AppStyles.color.text,
+  inputTitle: {
+    color: '#8A8F9E',
+    fontSize: 10,
+    textTransform: 'uppercase',
   },
-  button: {
-    margin: 5,
-    backgroundColor: "blue",
-    elevation: 8,
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 12
-  }
-});
+  input: {
+    borderBottomColor: '#8A8F9E',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    height: 40,
+    fontSize: 15,
+    color: '#161F3D',
+  },
+
+  buttonContainer: {
+    marginTop: 30,
+    marginHorizontal: 30,
+    backgroundColor: '#E9446A',
+    borderRadius: 4,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFF',
+    fontWeight: '500',
+  },
+})

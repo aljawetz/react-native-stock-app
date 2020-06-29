@@ -4,7 +4,7 @@ const { width, height } = Dimensions.get("window");
 const SCREEN_WIDTH = width < height ? width : height;
 const numColumns = 2;
 
-export const AppStyles = {
+export const Styles = {
   color: {
     main: "#5ea23a",
     text: "#696969",
@@ -42,6 +42,17 @@ export const AppStyles = {
   borderRadius: {
     main: 25,
     small: 5
+  },
+  container: {
+    flex: 1,
+    alignItem: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: "black",
+    marginVertical: 20,
   }
 };
 
@@ -53,7 +64,7 @@ export const AppIcon = {
     marginRight: 10
   },
   style: {
-    tintColor: AppStyles.color.tint,
+    tintColor: Styles.color.tint,
     width: 25,
     height: 25
   },
@@ -78,18 +89,18 @@ export const HeaderButtonStyle = StyleSheet.create({
     margin: 6
   },
   rightButton: {
-    color: AppStyles.color.tint,
+    color: Styles.color.tint,
     marginRight: 10,
     fontWeight: "normal",
-    fontFamily: AppStyles.fontName.main
+    fontFamily: Styles.fontName.main
   }
 });
 
 export const ListStyle = StyleSheet.create({
   title: {
     fontSize: 16,
-    color: AppStyles.color.subtitle,
-    fontFamily: AppStyles.fontName.bold,
+    color: Styles.color.subtitle,
+    fontFamily: Styles.fontName.bold,
     fontWeight: "bold"
   },
   subtitleView: {
