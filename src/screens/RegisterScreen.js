@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Styles } from '../Styles';
+import Input from '../components/Input'
 import * as firebase from 'firebase';
 
 export default function RegisterScreen({ navigation }) {
@@ -21,40 +22,32 @@ export default function RegisterScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-        <Text style={styles.title}>Hi! Register to get started</Text>
 
+        <Text style={styles.title}>Hi! Register to get started</Text>
         <View style={styles.errorMessageContainer}>
           {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Email:</Text>
-          <TextInput
-            keyboardType='email-address'
-            style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-          />
-        </View>
+        <Input
+          title='Email:'
+          value={email}
+          onChangeText={setEmail}
+          keyboardType='email-address'
+          autoCapitalize='none'
+        />
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>name:</Text>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={setName}
-          />
-        </View>
+        <Input
+          title='Name:'
+          value={name}
+          onChangeText={setName}
+        />
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Password:</Text>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-        </View>
+        <Input
+          title='Password:'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleRegister}>
           <Text style={styles.buttonText}>Register</Text>

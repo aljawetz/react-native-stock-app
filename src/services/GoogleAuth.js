@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import * as Google from 'expo-google-app-auth';
+//import * as Google from 'expo-google-app-auth';
 
 function isUserEqual(googleUser, firebaseUser) {
   if (firebaseUser) {

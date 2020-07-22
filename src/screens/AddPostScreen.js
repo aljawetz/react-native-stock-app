@@ -1,72 +1,119 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Button } from 'react-native-paper';
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, ActionSheetIOS } from 'react-native';
+import Input from '../components/Input';
+import Header from '../components/Header';
+import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../Styles';
 
-export default function AddPostScreen() {
-  const [text, onChangeText] = React.useState('');
-  const [resultMessage, setResultMessage] = React.useState(false);
+import Fire from '../utils/Firebase';
 
-  function onSendPost() {
-    if (text.length <= 0) {
-      setResultMessage("Can't send empty post!");
-      return;
-    }
-    setResultMessage("Post sent!");
+import { selectPhoto, takePhoto } from '../utils/getPhoto';
+
+export default function AddPostScreen({ navigation }) {
+  const [text, setText] = useState('');
+  const [image, setImage] = useState();
+  const [sendingPost, setSendingPost] = useState(false);
+
+
+  const handlePost = async () => {
+    setSendingPost(true);
+
+    Fire.shared.addPost({ text: text.trim(), image })
+    setText('');
+    setSendingPost(false);
   }
 
+  const handlePhoto = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ["Cancel", "Select photo", "Take photo"],
+      cancelButtonIndex: 0,
+    },
+      async buttonIndex => {
+        if (buttonIndex === 0) {
+          // cancel action
+        } else if (buttonIndex === 1) {
+          setImage(await selectPhoto());
+        } else if (buttonIndex === 2) {
+          setImage(await takePhoto());
+        }
+      }
+    );
+  };
+  /*
+  const handlePost = () => {
+    setSendingPost(true);
+
+    Fire.shared.addPost({ text: text.trim(), localUri: image })
+    setSendingPost(true);
+  };
+  */
 
   return (
-    <View style={styles.container}>
-      <View style={styles.InputContainer}>
-        <TextInput
-          placeholder="Write your post!"
-          value={text}
-          onChangeText={onChangeText}
-          style={styles.body}
-          placeholderTextColor='grey'
-          underlineColorAndroid="transparent"
-          multiline
-        />
-      </View>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-        <Button
-          onPress={onSendPost}
-          style={styles.button}
-          mode="contained">
-          SEND
-      </Button>
-        {resultMessage && <Text style={{ color: "red" }}>{resultMessage}</Text>}
-      </TouchableWithoutFeedback>
-    </View>
+    <>
+      <Header
+        title='Add a Post!'
+        currentScreen={AddPostScreen}
+        navigation={navigation}
+      />
+      <SafeAreaView style={{ flex: 1 }}>
+
+        <ScrollView style={styles.container}>
+          <Input
+            title='Send your art!'
+            value={text}
+            onChangeText={setText}
+            multiline
+            maxLength={4}
+          />
+
+          {sendingPost ? (
+            <Text style={{ alignSelf: 'center', color: 'red' }}>Sending post!</Text>
+          ) : (
+              <Text style={{ alignSelf: 'center', color: 'red' }}></Text>
+            )}
+
+          <TouchableOpacity style={{ alignSelf: 'center', paddingTop: 20 }} onPress={handlePhoto}>
+            <Ionicons name='ios-add' size={24} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => handlePost}>
+            <Text style={styles.buttonText}>Send Art!</Text>
+          </TouchableOpacity>
+
+          <View style={{ marginHorizontal: 32, marginTop: 32, height: 150 }}>
+            <Image source={{ uri: image }} style={{ width: '100%', height: '100%' }}></Image>
+          </View>
+
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: "center"
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingTop: 24,
   },
-  InputContainer: {
-    marginHorizontal: 20,
+  text: {
+    padding: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+
+  buttonContainer: {
     marginTop: 30,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'grey',
-    borderRadius: 20,
+    marginHorizontal: 30,
+    backgroundColor: '#E9446A',
+    borderRadius: 4,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  body: {
-    height: 100,
-    paddingLeft: 20,
-    paddingRight: 20,
-    color: 'black',
-  },
-  button: {
-    marginTop: 20,
-    marginLeft: 200,
-    marginRight: 20,
-    backgroundColor: "blue",
-    elevation: 4,
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+  buttonText: {
+    color: '#FFF',
+    fontWeight: '500',
   },
 });

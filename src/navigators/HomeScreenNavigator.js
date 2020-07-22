@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from '../screens/HomeScreen';
-import AddPostScreen from '../screens/AddPostScreen';
+import MessageScreen from '../screens/MessageScreen';
 
 const Stack = createStackNavigator();
 
@@ -10,17 +10,15 @@ export default function HomeScreenNavigator() {
   return (
     <Stack.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{
-        headerTintColor: "red",
-      }}
+      headerMode='none'
     >
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
       />
       <Stack.Screen
-        name="AddPostScreen"
-        component={AddPostScreen}
+        name="MessageScreen"
+        component={MessageScreen}
       />
     </Stack.Navigator>
   );

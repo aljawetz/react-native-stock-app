@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Button, SafeAreaView } from 'react-native';
+import { colors } from '../Styles';
 import { Avatar } from 'react-native-paper';
+import Header from '../components/Header';
 
 import firebase from 'firebase';
 
@@ -25,26 +27,36 @@ export default function Profile({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <>
+      <Header
+        title='Profile'
+        currentScreen='ProfileScreenNavigator'
+        icon='ios-browsers'
+        navigateTo='SettingsScreen'
+        navigation={navigation}
+      />
+      <SafeAreaView style={{ flex: 1 }}>
 
-      <Avatar.Image source={photoURL || userImage} />
-      <Text style={styles.userName}>Hello, {displayName}</Text>
-      <Text style={styles.userName}>{email}</Text>
-      <Button title="Sign out" onPress={handleSignOut} />
-    </View>
+        <ScrollView style={styles.container}>
+          <Avatar.Image source={photoURL || userImage} style={styles.avatar} />
+          <Text style={styles.userName}>Hello, {displayName}</Text>
+          <Text style={styles.userName}>{email}</Text>
+          <Button title="Sign out" onPress={handleSignOut} />
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
+    backgroundColor: colors.background,
+    paddingTop: 24,
   },
-  backgroundImage: {
-    width: 100,
-    height: 100,
+  avatar: {
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   userImage: {
     width: 200,
@@ -52,7 +64,7 @@ const styles = StyleSheet.create({
   },
   userName: {
     margin: 24,
-    marginTop: 0,
+    marginTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',

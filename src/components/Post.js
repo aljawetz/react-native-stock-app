@@ -14,6 +14,7 @@ export default function Post() {
 const styles = StyleSheet.create({
   postContainer: {
     flex: 1,
+    backgroundColor: 'white',
   },
   image: {
     marginTop: 50,

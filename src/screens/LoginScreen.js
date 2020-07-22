@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Styles } from '../Styles';
+import Input from '../components/Input';
+import { Ionicons } from '@expo/vector-icons';
 
 import signInWithGoogleAsync from '../services/GoogleAuth';
 import * as firebase from 'firebase';
@@ -18,9 +20,9 @@ export default function LoginScreen({ navigation }) {
     navigation.navigate('RegisterScreen');
   }
 
-  function onLoginWithGoogle() {
+  function handleGoogleLogin() {
     if (signInWithGoogleAsync) {
-      navigation.navigate('HomeNavigator');
+      navigation.navigate('MainNavigator');
     } else
       navigation.navigate('RegisterScreen');
   }
@@ -35,34 +37,40 @@ export default function LoginScreen({ navigation }) {
           {errorMessage && <Text style={styles.errorMessageText}>{errorMessage}</Text>}
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Email:</Text>
-          <TextInput
-            keyboardType='email-address'
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Password:</Text>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-        </View>
+        <Input
+          title='Email:'
+          value={email}
+          onChangeText={setEmail}
+          keyboardType='email-address'
+          autoCapitalize='none'
+        />
+        <Input
+          title='Password:'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
+        <View style={styles.logoContainer}>
+          <TouchableOpacity onPress={handleGoogleLogin}>
+            <Ionicons name="logo-google" size={40} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleGoogleLogin}>
+            <Ionicons name="logo-facebook" size={40} />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={styles.registerContainer} onPress={handleRegister}>
           <Text style={styles.registerText}>
             New to the App? <Text style={styles.registerHighlight}>Register</Text>
           </Text>
         </TouchableOpacity>
+
 
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -122,6 +130,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFF',
     fontWeight: '500',
+  },
+
+  logoContainer: {
+    flexDirection: "row",
+    marginTop: 30,
+    marginHorizontal: 30,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 
   registerContainer: {
