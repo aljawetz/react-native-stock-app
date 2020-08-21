@@ -14,5 +14,9 @@ export default stocks = [
   {
     code: "IBM",
     name: "IBM",
-  }
+  },
+  {
+    code: "INTC",
+    name: "Intel",
+  },
 ]
