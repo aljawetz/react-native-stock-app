@@ -30,7 +30,7 @@ export default function Searchbar({ navigation }) {
       listStyle={styles.list}
 
       renderItem={({ item }) => (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('NotificationsScreen', { symbol: item.code })}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('ChartScreen', { symbol: item.code })}>
           <Text>{item.name}  {item.code}</Text>
         </TouchableOpacity >
       )}

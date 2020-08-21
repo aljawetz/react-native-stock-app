@@ -33,7 +33,10 @@ export default function Card({ props, navigation }) {
       {isLoading ? (
         <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
       ) : (
-          <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('NotificationsScreen', { symbol: props.symbol })}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => navigation.navigate('ChartScreen', { symbol: props.symbol })}
+          >
             <Avatar.Image source={userImage} style={styles.avatar} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>{props.name}</Text>

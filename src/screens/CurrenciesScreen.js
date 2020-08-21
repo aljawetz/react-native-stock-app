@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, SafeAreaView, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
 import Card from '../components/Card';
-import Searchbar from '../components/Searchbar';
 import getFinanceData from '../services/api';
 
 import { colors } from '../Styles';

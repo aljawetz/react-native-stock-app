@@ -31,7 +31,7 @@ export default function Profile({ navigation }) {
       <Header
         title='Profile'
         currentScreen='ProfileScreenNavigator'
-        icon='ios-browsers'
+        icon='ios-settings'
         navigateTo='SettingsScreen'
         navigation={navigation}
       />

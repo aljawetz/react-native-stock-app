@@ -5,7 +5,7 @@ import { colors } from '../Styles';
 import Chart from '../components/Chart';
 import Button from '../components/Button';
 
-export default function NotificationsScreen({ route, navigation }) {
+export default function ChartScreen({ route, navigation }) {
   const { symbol } = route.params;
   const [time, setTime] = useState('');
 

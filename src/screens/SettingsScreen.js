@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 
-export default function NotificationsScreen({ navigation }) {
+export default function SettingsScreen({ navigation }) {
   return (
     <>
       <Header
