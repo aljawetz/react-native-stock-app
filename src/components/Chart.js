@@ -13,13 +13,13 @@ const chartConfig = {
   barPercentage: 0.5,
 };
 
-export default function Chart(props) {
+export default function Chart({ symbol, time }) {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   async function getStock() {
     try {
-      let [labels, stockData] = await getTimeSeriesDaily(props.symbol);
+      let [labels, stockData] = await getTimeSeriesDaily(symbol);
 
       setData({
         labels,
@@ -37,7 +37,7 @@ export default function Chart(props) {
 
   useEffect(() => {
     getStock();
-  }, []);
+  }, [symbol]);
 
 
   return (

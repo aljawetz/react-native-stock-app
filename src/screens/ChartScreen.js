@@ -13,7 +13,7 @@ export default function NotificationsScreen({ route, navigation }) {
     <>
       <Header
         title={symbol}
-        currentScreen='NotificationsScreen'
+        currentScreen='ChartScreen'
         navigation={navigation}
       />
       <SafeAreaView style={{ flex: 1 }}>

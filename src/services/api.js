@@ -5,11 +5,18 @@ async function getFinanceData() {
   try {
     let response = await fetch(url);
     let data = await response.json();
-    let currencies = data["results"]["currencies"];
+
+    let currencies = Object.entries(data["results"]["currencies"]);
     let stocks = data["results"]["stocks"];
     let taxes = data["results"]["taxes"][0];
 
-    return [Object.values(currencies), Object.values(stocks), taxes];
+    currencies.shift();
+    currencies = currencies.map(currencie => {
+      let temp = { ...currencie };
+      return { "symbol": temp[0], ...temp[1] };
+    });
+
+    return [currencies, Object.values(stocks), taxes];
 
   } catch (error) {
     console.error(error);

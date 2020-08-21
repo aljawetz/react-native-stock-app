@@ -24,6 +24,7 @@ export default function Card({ props, navigation }) {
   */
   useEffect(() => {
     //getStock();
+    //console.log(Object.getOwnPropertyNames(props));
     setIsLoading(false);
   }, []);
 
@@ -32,10 +33,12 @@ export default function Card({ props, navigation }) {
       {isLoading ? (
         <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
       ) : (
-          <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('NotificationsScreen', { symbol: props.title })}>
+          <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('NotificationsScreen', { symbol: props.symbol })}>
             <Avatar.Image source={userImage} style={styles.avatar} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>{props.name}</Text>
+              <Text style={styles.price}>{props.location}</Text>
+              <Text style={styles.price}>{props.points}</Text>
               <Text style={{ color: props.variation > 0 ? 'green' : 'red' }}>{props.variation}</Text>
             </View>
           </TouchableOpacity>

@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from '../screens/HomeScreen';
-import MessageScreen from '../screens/MessageScreen';
+import ChartScreen from '../screens/ChartScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,8 +17,9 @@ export default function HomeScreenNavigator() {
         component={HomeScreen}
       />
       <Stack.Screen
-        name="MessageScreen"
-        component={MessageScreen}
+        name="ChartScreen"
+        component={ChartScreen}
+        initialParams={{ symbol: 'IBM' }}
       />
     </Stack.Navigator>
   );

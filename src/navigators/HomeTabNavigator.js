@@ -4,8 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreenNavigator from './HomeScreenNavigator';
 
-import AddPostScreen from '../screens/AddPostScreen';
-import NotificationsScreen from '../screens/NotificationsScreen';
+import CurrenciesScreen from '../screens/CurrenciesScreen';
+import StocksScreen from '../screens/StocksScreen';
 import ProfileScreenNavigator from './ProfileScreenNavigator';
 
 const Tab = createBottomTabNavigator();
@@ -27,12 +27,18 @@ export default function HomeTabNavigator() {
           ),
         }}
       />
-
-
       <Tab.Screen
-        name="NotificationsScreen"
-        component={NotificationsScreen}
-        initialParams={{ symbol: 'IBM' }}
+        name="CurrenciesScreen"
+        component={CurrenciesScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='ios-notifications' color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="StocksScreen"
+        component={StocksScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='ios-notifications' color={color} size={size} />
@@ -51,15 +57,3 @@ export default function HomeTabNavigator() {
     </Tab.Navigator>
   );
 }
-/*
-<Tab.Screen
-        name="AddPostScreen"
-        component={AddPostScreen}
-        screenOptions={{ title: 'Add Post' }}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name='ios-add-circle' color='#e91e63' size={48} />
-          ),
-        }}
-      />
-*/

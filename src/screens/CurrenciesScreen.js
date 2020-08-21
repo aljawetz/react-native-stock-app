@@ -35,7 +35,6 @@ export default function Home({ navigation }) {
         <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
       ) : (
           <SafeAreaView style={styles.container}>
-            <Searchbar navigation={navigation} />
             <FlatList
               data={currencies}
               renderItem={({ item }) => <Card props={item} navigation={navigation} />}

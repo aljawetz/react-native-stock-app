@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AutoComplete from 'react-native-autocomplete-input';
-import Suggestions from './Suggestions';
+import Suggestions from '../utils/Suggestions';
 
-export default function SearchBar({ navigation }) {
+export default function Searchbar({ navigation }) {
   const [query, setQuery] = useState('');
 
   function findStocks(query) {
