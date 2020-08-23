@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Dimensions, ActivityIndicator } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
-import getTimeSeriesDaily from '../services/getDaily';
 
 const chartConfig = {
   backgroundGradientFrom: "#eee",
@@ -13,32 +12,21 @@ const chartConfig = {
   barPercentage: 0.5,
 };
 
-export default function Chart({ symbol, time }) {
+export default function Chart({ stockData }) {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  async function getStock() {
-    try {
-      let [labels, stockData] = await getTimeSeriesDaily(symbol);
-
-      setData({
-        labels,
-        datasets: [
-          {
-            data: stockData.reverse(),
-          }
-        ],
-      });
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
-    getStock();
-  }, [symbol]);
-
+    setData({
+      labels: [],
+      datasets: [
+        {
+          data: stockData,
+        }
+      ],
+    });
+    setIsLoading(false);
+  }, [stockData]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -51,14 +39,12 @@ export default function Chart({ symbol, time }) {
             width={Dimensions.get('window').width - 16}
             height={220}
             withDots={false}
-            bezier
             withVerticalLabels={false}
             withHorizontalLabels={false}
             withOuterLines={false}
             withInnerLines={false}
           />
-        )
-      }
+        )}
     </View>
   );
 }

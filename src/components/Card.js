@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, Button } from 'react-native';
 import { Avatar } from 'react-native-paper';
+
+const firebase = require('firebase');
+// Required for side-effects
+require('firebase/firestore');
 
 const userImage = require('../../assets/developer.png');
 
@@ -28,6 +32,18 @@ export default function Card({ props, navigation }) {
     setIsLoading(false);
   }, []);
 
+  async function handleAddFavorites() {
+    firebase.firestore().collection("stocks").doc("favorites").set({
+      name: props.name,
+    })
+      .then(function () {
+        console.log("Document successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+  }
+
   return (
     <>
       {isLoading ? (
@@ -43,6 +59,9 @@ export default function Card({ props, navigation }) {
               <Text style={styles.price}>{props.location}</Text>
               <Text style={styles.price}>{props.points}</Text>
               <Text style={{ color: props.variation > 0 ? 'green' : 'red' }}>{props.variation}</Text>
+              <TouchableOpacity onPress={handleAddFavorites}>
+                <Text>Add to Favs</Text>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         )

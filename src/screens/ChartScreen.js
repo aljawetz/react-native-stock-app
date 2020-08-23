@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
-import { View, ScrollView, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, Text, StyleSheet, SafeAreaView, ActivityIndicator, Button } from 'react-native';
 import Header from '../components/Header';
 import { colors } from '../Styles';
 import Chart from '../components/Chart';
-import Button from '../components/Button';
+//import Button from '../components/Button';
+import getTimeSeriesDaily from '../services/getDaily';
 
 export default function ChartScreen({ route, navigation }) {
   const { symbol } = route.params;
-  const [time, setTime] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [fullData, setFullData] = useState([]);
+  const [data, setData] = useState([]);
+
+  async function getStock() {
+    try {
+      let [labels, stockData] = await getTimeSeriesDaily(symbol);
+      setFullData(stockData);
+      setData(stockData);
+      setIsLoading(false);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getStock();
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  function handleTimeButton(number) { }
 
   return (
     <>
@@ -19,18 +44,22 @@ export default function ChartScreen({ route, navigation }) {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.container} >
           <View style={styles.buttonsContainer}>
-            <Button title='1D' onPress={() => setTime('1D')} />
-            <Button title='3D' onPress={() => setTime('3D')} />
-            <Button title='1W' onPress={() => setTime('1W')} />
-            <Button title='1M' onPress={() => setTime('1M')} />
-            <Button title='3M' onPress={() => setTime('3M')} />
-            <Button title='6M' onPress={() => setTime('6M')} />
+            <Button title='1D' onPress={() => setData(fullData.slice(-1))} />
+            <Button title='3D' onPress={() => setData(fullData.slice(-3))} />
+            <Button title='1W' onPress={() => setData(fullData.slice(-7))} />
+            <Button title='1M' onPress={() => setData(fullData.slice(-30))} />
+            <Button title='3M' onPress={() => setData(fullData.slice(-60))} />
+            <Button title='6M' onPress={() => setData(fullData.slice(-180))} />
+            <Button title='Max' onPress={() => setData(fullData)} />
           </View>
           <View style={styles.chartContainer}>
-            <Chart symbol={symbol} time={time} />
+            {isLoading ? (
+              <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
+            ) : (
+                <Chart stockData={data} />
+              )}
           </View>
         </ScrollView>
-
       </SafeAreaView >
     </>
   );
