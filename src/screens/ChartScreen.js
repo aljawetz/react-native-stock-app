@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Text, StyleSheet, SafeAreaView, ActivityIndicator, Button } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView, ActivityIndicator, Button } from 'react-native';
 import Header from '../components/Header';
 import { colors } from '../Styles';
 import Chart from '../components/Chart';
-//import Button from '../components/Button';
+import StockInfo from '../components/StockInfo';
 import getTimeSeriesDaily from '../services/getDaily';
 
 export default function ChartScreen({ route, navigation }) {
@@ -11,12 +11,16 @@ export default function ChartScreen({ route, navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [data, setData] = useState([]);
+  const [lastData, setLastData] = useState([]);
 
   async function getStock() {
     try {
-      let [labels, stockData] = await getTimeSeriesDaily(symbol);
+      let [labels, stockData, lastStockData] = await getTimeSeriesDaily(symbol);
+      console.log(lastStockData);
+
       setFullData(stockData);
       setData(stockData);
+      setLastData(lastStockData);
       setIsLoading(false);
 
     } catch (error) {
@@ -31,8 +35,6 @@ export default function ChartScreen({ route, navigation }) {
   useEffect(() => {
     console.log(data);
   }, [data]);
-
-  function handleTimeButton(number) { }
 
   return (
     <>
@@ -59,6 +61,7 @@ export default function ChartScreen({ route, navigation }) {
                 <Chart stockData={data} />
               )}
           </View>
+          <StockInfo data={lastData}/>
         </ScrollView>
       </SafeAreaView >
     </>
