@@ -58,10 +58,7 @@ export default function Card({ props, navigation }) {
               <Text style={styles.title}>{props.name}</Text>
               <Text style={styles.price}>{props.location}</Text>
               <Text style={styles.price}>{props.points}</Text>
-              <Text style={{ color: props.variation > 0 ? 'green' : 'red' }}>{props.variation}</Text>
-              <TouchableOpacity onPress={handleAddFavorites}>
-                <Text>Add to Favs</Text>
-              </TouchableOpacity>
+              <Text style={{ color: props.variation > 0 ? 'green' : 'red' }}>{props.variation}%</Text>
             </View>
           </TouchableOpacity>
         )
@@ -74,8 +71,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flexDirection: 'row',
-    marginVertical: 3,
-    marginHorizontal: 10,
+    marginTop: 7,
+    marginHorizontal: 7,
     padding: 10,
     borderRadius: 5,
   },

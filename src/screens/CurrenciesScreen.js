@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
+import Header from '../components/Header';
 import Card from '../components/Card';
 import getFinanceData from '../services/api';
 
@@ -30,6 +31,11 @@ export default function Home({ navigation }) {
 
   return (
     <>
+      <Header
+        title='Currencies'
+        currentScreen='CurrenciesNavigator'
+        navigation={navigation}
+      />
       {isLoading ? (
         <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
       ) : (

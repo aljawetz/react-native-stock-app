@@ -15,11 +15,12 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
+  //<Stack.Navigator initialRouteName={'LoadingScreen'} headerMode='none'>
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={'LoadingScreen'} headerMode='none'>
+        <Stack.Navigator initialRouteName={'HomeTabNavigator'} headerMode='none'>
           <Stack.Screen name='LoadingScreen' component={LoadingScreen} />
           <Stack.Screen name='LoginNavigator' component={LoginNavigator} options={{ gestureEnabled: false }} />
           <Stack.Screen name='HomeTabNavigator' component={HomeTabNavigator} options={{ gestureEnabled: false }} />
