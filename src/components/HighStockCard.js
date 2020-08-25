@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
-export default function HighStockInfo({ data }) {
+export default function HighStockCard({ data }) {
 
   return (
     <TouchableOpacity style={styles.container}>

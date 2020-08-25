@@ -20,7 +20,7 @@ export default function App() {
     <>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={'HomeTabNavigator'} headerMode='none'>
+        <Stack.Navigator initialRouteName={'LoadingScreen'} headerMode='none'>
           <Stack.Screen name='LoadingScreen' component={LoadingScreen} />
           <Stack.Screen name='LoginNavigator' component={LoginNavigator} options={{ gestureEnabled: false }} />
           <Stack.Screen name='HomeTabNavigator' component={HomeTabNavigator} options={{ gestureEnabled: false }} />

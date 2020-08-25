@@ -6,7 +6,7 @@ import { Styles } from '../Styles';
 
 export default function LoadingScreen({ navigation }) {
 
-  React.useEffect(() => {
+  useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       navigation.navigate(user ? 'HomeTabNavigator' : 'LoginNavigator');
     })

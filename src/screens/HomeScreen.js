@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList, SafeAreaView, View, ActivityIndicator } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
-import HighStockInfo from '../components/HighStockInfo';
+import HighStockCard from '../components/HighStockCard';
 //import Searchbar from '../components/Searchbar';
 
 import getHigh from '../services/getHigh';
-import getFinanceData from '../services/api';
 
 import { colors } from '../Styles';
 
@@ -35,7 +34,7 @@ export default function Home({ navigation }) {
   return (
     <>
       <Header
-        title='Stock-app'
+        title='stock-app'
         currentScreen='HomeScreenNavigator'
         icon='ios-search'
         navigateTo='StocksNavigator'
@@ -46,8 +45,8 @@ export default function Home({ navigation }) {
       ) : (
           <SafeAreaView style={styles.container}>
             <View style={styles.stockInfoContainer}>
-              <HighStockInfo style={styles.stockInfoItem} data={high} />
-              <HighStockInfo style={styles.stockInfoItem} data={low} />
+              <HighStockCard style={styles.stockInfoItem} data={high} />
+              <HighStockCard style={styles.stockInfoItem} data={low} />
             </View>
           </SafeAreaView>
         )
@@ -64,8 +63,8 @@ const styles = StyleSheet.create({
   },
   stockInfoContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 10,
+    justifyContent: "space-evenly",
+    marginTop: 7.5,
   },
   stockInfoItem: {
     backgroundColor: 'blue',
