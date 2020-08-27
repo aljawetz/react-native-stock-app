@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreenNavigator from './HomeScreenNavigator';
 import CurrenciesNavigator from './CurrenciesNavigator';
 import StocksNavigator from './StocksNavigator';
+import SearchScreen from '../screens/SearchScreen';
 
 import ProfileScreenNavigator from './ProfileScreenNavigator';
 
@@ -24,6 +25,15 @@ export default function HomeTabNavigator() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='ios-home' color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='ios-search' color={color} size={size} />
           ),
         }}
       />

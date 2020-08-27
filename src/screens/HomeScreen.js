@@ -3,7 +3,6 @@ import { StyleSheet, FlatList, SafeAreaView, View, ActivityIndicator } from 'rea
 import Card from '../components/Card';
 import Header from '../components/Header';
 import HighStockCard from '../components/HighStockCard';
-//import Searchbar from '../components/Searchbar';
 
 import getHigh from '../services/getHigh';
 
@@ -30,14 +29,11 @@ export default function Home({ navigation }) {
     getHighStock();
   }, []);
 
-  //<Searchbar navigation={navigation} />
   return (
     <>
       <Header
         title='stock-app'
         currentScreen='HomeScreenNavigator'
-        icon='ios-search'
-        navigateTo='StocksNavigator'
         navigation={navigation}
       />
       {isLoading ? (
