@@ -26,6 +26,7 @@ export const colors = {
   placeholder: "#a0a0a0",
   //background: "#070061",
   background: "#D3D3D3",
+  button: '#007AFF',
   blue: "#3293fe",
   orange: "#F97878",
   pink: "#EA3372"

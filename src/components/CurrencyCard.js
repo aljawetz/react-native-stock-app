@@ -8,7 +8,7 @@ export default function CurrencyCard({ props, navigation }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log(props);
+    //console.log(props);
     setIsLoading(false);
   }, []);
 

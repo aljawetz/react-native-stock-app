@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, ActivityIndicator, Button } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
 import Header from '../components/Header';
 import { colors } from '../Styles';
 import Chart from '../components/Chart';
 import StockInfo from '../components/StockInfo';
+
 import getTimeSeriesDaily from '../services/getDaily';
+import getCompanyOverview from '../services/getCompanyOverview';
+
+const buttons = [1, 3, 7, 21, 30, 90, 'MAX'];
 
 export default function ChartScreen({ route, navigation }) {
   const { symbol } = route.params;
   const [isLoading, setIsLoading] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [data, setData] = useState([]);
-  const [lastData, setLastData] = useState([]);
+  const [overview, setOverview] = useState({});
+  const [selectedButtonIdx, setSelectedButtonIdx] = useState(buttons.length - 1);
 
   async function getStock() {
     try {
-      let [labels, stockData, lastStockData] = await getTimeSeriesDaily(symbol);
-      console.log(lastStockData);
+      let [labels, stockData] = await getTimeSeriesDaily(symbol);
+      let overviewData = await getCompanyOverview(symbol);
 
       setFullData(stockData);
       setData(stockData);
-      setLastData(lastStockData);
+      setOverview(overviewData);
       setIsLoading(false);
 
     } catch (error) {
@@ -28,13 +33,33 @@ export default function ChartScreen({ route, navigation }) {
     }
   }
 
+  function handleSelection(timespan, idx) {
+
+    if (timespan === 'MAX') setData(fullData);
+    else setData(fullData.slice(-timespan));
+
+    setSelectedButtonIdx(idx);
+  }
+
+  const renderButton = (numberOfDays, idx) => {
+
+    return (
+      <TouchableOpacity
+        style={[
+          styles.buttonContainer,
+          { backgroundColor: (selectedButtonIdx === idx) ? colors.button : colors.background }
+        ]}
+        key={idx}
+        onPress={() => handleSelection(numberOfDays, idx)}
+      >
+        <Text style={styles.buttonText}>{numberOfDays + 'D'}</Text>
+      </TouchableOpacity>
+    );
+  }
+
   useEffect(() => {
     getStock();
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <>
@@ -44,25 +69,17 @@ export default function ChartScreen({ route, navigation }) {
         navigation={navigation}
       />
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={styles.container} >
-          <View style={styles.buttonsContainer}>
-            <Button title='1D' onPress={() => setData(fullData.slice(-1))} />
-            <Button title='3D' onPress={() => setData(fullData.slice(-3))} />
-            <Button title='1W' onPress={() => setData(fullData.slice(-7))} />
-            <Button title='1M' onPress={() => setData(fullData.slice(-30))} />
-            <Button title='3M' onPress={() => setData(fullData.slice(-60))} />
-            <Button title='6M' onPress={() => setData(fullData.slice(-180))} />
-            <Button title='Max' onPress={() => setData(fullData)} />
-          </View>
-          <View style={styles.chartContainer}>
-            {isLoading ? (
-              <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
-            ) : (
-                <Chart stockData={data} />
-              )}
-          </View>
-          <StockInfo data={lastData}/>
-        </ScrollView>
+        {isLoading ? (
+          <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
+        ) : (
+            <ScrollView style={styles.container} >
+              <View style={styles.buttonsContainer}>
+                {buttons.map((button, idx) => renderButton(button, idx))}
+              </View>
+              <Chart stockData={data} />
+              <StockInfo data={overview} />
+            </ScrollView>
+          )}
       </SafeAreaView >
     </>
   );
@@ -80,7 +97,14 @@ const styles = StyleSheet.create({
     height: 40,
     marginHorizontal: 30,
   },
-  chartContainer: {
-    marginTop: 20,
-  }
+
+  buttonContainer: {
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
 });

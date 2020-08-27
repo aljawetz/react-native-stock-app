@@ -16,9 +16,8 @@ const getDatasets = data => {
     let valuesArr = Object.values(date);
     stockData.push(valuesArr[4]);
   });
-  let lastData = Object.values(datesArr[0]);
 
-  return [stockData, lastData];
+  return stockData;
 }
 
 async function getTimeSeriesDaily(symbol) {
@@ -29,9 +28,9 @@ async function getTimeSeriesDaily(symbol) {
     let data = await response.json();
 
     const labels = getLabels(data);
-    const [stockData, lastData] = getDatasets(data);
+    const stockData = getDatasets(data);
 
-    return [labels, stockData.reverse(), lastData];
+    return [labels, stockData.reverse()];
   } catch (error) {
     console.error(error);
   }
