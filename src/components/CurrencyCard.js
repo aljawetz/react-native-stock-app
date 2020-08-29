@@ -8,7 +8,6 @@ export default function CurrencyCard({ props, navigation }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    //console.log(props);
     setIsLoading(false);
   }, []);
 
@@ -19,7 +18,7 @@ export default function CurrencyCard({ props, navigation }) {
       ) : (
           <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('ChartScreen', { symbol: props.symbol })}
+            onPress={() => navigation.navigate('CurrencyChartScreen', { symbol: props.symbol })}
           >
             <Avatar.Image source={userImage} style={styles.avatar} />
             <View style={styles.textContainer}>

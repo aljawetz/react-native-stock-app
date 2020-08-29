@@ -30,7 +30,6 @@ export default function Chart({ stockData }) {
     setIsLoading(false);
   }, [stockData]);
 
-  console.log(data)
   return (
     <>
       {isLoading ? (
