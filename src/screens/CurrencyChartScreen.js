@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
 import Header from '../components/Header';
 import Chart from '../components/Chart';
+import CurrencyInfo from '../components/CurrencyInfo';
 import { colors } from '../Styles';
 
 import getCurrencyDaily from '../services/getCurrencyDaily';
@@ -13,14 +14,15 @@ export default function ChartScreen({ route, navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [fullData, setFullData] = useState([]);
   const [data, setData] = useState([]);
+  const [lastData, setLastData] = useState([]);
   const [selectedButtonIdx, setSelectedButtonIdx] = useState(buttons.length - 1);
 
   async function getData() {
     try {
-      let [labels, currencyData] = await getCurrencyDaily(symbol);
-
+      let [labels, currencyData, lastData] = await getCurrencyDaily(symbol);
       setFullData(currencyData);
       setData(currencyData);
+      setLastData(lastData);
       setIsLoading(false);
 
     } catch (error) {
@@ -29,7 +31,6 @@ export default function ChartScreen({ route, navigation }) {
   }
 
   function handleSelection(timespan, idx) {
-
     if (timespan === 'MAX') setData(fullData);
     else setData(fullData.slice(-timespan));
 
@@ -37,7 +38,6 @@ export default function ChartScreen({ route, navigation }) {
   }
 
   const renderButton = (numberOfDays, idx) => {
-
     return (
       <TouchableOpacity
         style={[
@@ -72,6 +72,7 @@ export default function ChartScreen({ route, navigation }) {
                 {buttons.map((button, idx) => renderButton(button, idx))}
               </View>
               <Chart stockData={data} />
+              <CurrencyInfo data={lastData} symbol={symbol} />
             </ScrollView>
           )}
       </SafeAreaView >

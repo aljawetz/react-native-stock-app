@@ -10,15 +10,16 @@ const getDatasets = data => {
   const processedData = data["Time Series FX (Daily)"];
 
   let datesArr = Object.values(processedData);
-  let stockData = [];
+
+  let currencyData = [];
 
   datesArr.forEach(date => {
     let valuesArr = Object.values(date);
-    stockData.push(valuesArr[3]);
+    currencyData.push(valuesArr[3]);
   });
+  let lastData = datesArr[0];
 
-  console.log(stockData);
-  return stockData;
+  return [currencyData, lastData];
 }
 
 async function getCurrencyDaily(symbol) {
@@ -29,8 +30,9 @@ async function getCurrencyDaily(symbol) {
     let data = await response.json();
 
     const labels = getLabels(data);
-    const datasets = getDatasets(data);
-    return [labels, datasets.reverse()];
+    const [datasets, lastData] = getDatasets(data);
+
+    return [labels, datasets.reverse(), lastData];
   } catch (error) {
     console.error(error);
   }
