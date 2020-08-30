@@ -6,7 +6,6 @@ async function getCompanyOverview(symbol) {
   try {
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     return data;
 
   } catch (error) {

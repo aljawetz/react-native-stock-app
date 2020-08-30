@@ -22,7 +22,7 @@ const getDatasets = data => {
   return [currencyData, lastData];
 }
 
-async function getCurrencyDaily(symbol) {
+async function getCurrencyChartData(symbol) {
 
   const url = `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=BRL&to_symbol=${symbol}&apikey=${apiKey}`;
   try {
@@ -38,4 +38,4 @@ async function getCurrencyDaily(symbol) {
   }
 }
 
-export default getCurrencyDaily;
+export default getCurrencyChartData;

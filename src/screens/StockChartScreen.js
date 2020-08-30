@@ -5,7 +5,7 @@ import { colors } from '../Styles';
 import Chart from '../components/Chart';
 import StockInfo from '../components/StockInfo';
 
-import getTimeSeriesDaily from '../services/getDaily';
+import getStockChartData from '../services/getStockChartData';
 import getCompanyOverview from '../services/getCompanyOverview';
 
 const buttons = [1, 3, 7, 21, 30, 90, 'MAX'];
@@ -20,7 +20,7 @@ export default function ChartScreen({ route, navigation }) {
 
   async function getStock() {
     try {
-      let [labels, stockData] = await getTimeSeriesDaily(symbol);
+      let [labels, stockData] = await getStockChartData(symbol);
       let overviewData = await getCompanyOverview(symbol);
 
       setFullData(stockData);

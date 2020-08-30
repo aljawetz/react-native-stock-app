@@ -20,7 +20,7 @@ const getDatasets = data => {
   return stockData;
 }
 
-async function getTimeSeriesDaily(symbol) {
+async function getChartData(symbol) {
 
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=${apiKey}`;
   try {
@@ -36,4 +36,4 @@ async function getTimeSeriesDaily(symbol) {
   }
 }
 
-export default getTimeSeriesDaily;
+export default getChartData;

@@ -5,7 +5,7 @@ import Chart from '../components/Chart';
 import CurrencyInfo from '../components/CurrencyInfo';
 import { colors } from '../Styles';
 
-import getCurrencyDaily from '../services/getCurrencyDaily';
+import getCurrencyChartData from '../services/getCurrencyChartData';
 
 const buttons = [1, 3, 7, 21, 30, 90, 'MAX'];
 
@@ -19,7 +19,7 @@ export default function ChartScreen({ route, navigation }) {
 
   async function getData() {
     try {
-      let [labels, currencyData, lastData] = await getCurrencyDaily(symbol);
+      let [labels, currencyData, lastData] = await getCurrencyChartData(symbol);
       setFullData(currencyData);
       setData(currencyData);
       setLastData(lastData);
