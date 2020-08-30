@@ -30,9 +30,7 @@ export default function Profile({ navigation }) {
     <>
       <Header
         title='Profile'
-        currentScreen='ProfileScreenNavigator'
-        icon='ios-settings'
-        navigateTo='SettingsScreen'
+        currentScreen='ProfileScreen'
         navigation={navigation}
       />
       <SafeAreaView style={{ flex: 1 }}>

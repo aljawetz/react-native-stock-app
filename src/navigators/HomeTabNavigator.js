@@ -4,9 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreenNavigator from './HomeScreenNavigator';
 import CurrenciesNavigator from './CurrenciesNavigator';
-import SearchScreen from '../screens/SearchScreen';
+import SearchNavigator from './SearchNavigator';
 
-import ProfileScreenNavigator from './ProfileScreenNavigator';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,8 +28,8 @@ export default function HomeTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="SearchScreen"
-        component={SearchScreen}
+        name="SearchNavigator"
+        component={SearchNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='ios-search' color={color} size={size} />
@@ -46,8 +46,8 @@ export default function HomeTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="ProfileScreenNavigator"
-        component={ProfileScreenNavigator}
+        name="ProfileScreen"
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='ios-person' color={color} size={size} />

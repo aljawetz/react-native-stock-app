@@ -1,20 +1,20 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from '../screens/HomeScreen';
+import SearchScreen from '../screens/SearchScreen';
 import StockChartScreen from '../screens/StockChartScreen';
 
 const Stack = createStackNavigator();
 
-export default function HomeScreenNavigator() {
+export default function SearchNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="SearchScreen"
       headerMode='none'
     >
       <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="SearchScreen"
+        component={SearchScreen}
       />
       <Stack.Screen
         name="StockChartScreen"

@@ -51,7 +51,7 @@ export default function Card({ props, navigation }) {
       ) : (
           <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('ChartScreen', { symbol: props.symbol })}
+            onPress={() => navigation.navigate('StockChartScreen', { symbol: props.symbol })}
           >
             <Avatar.Image source={userImage} style={styles.avatar} />
             <View style={styles.textContainer}>
