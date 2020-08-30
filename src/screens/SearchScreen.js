@@ -1,34 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TextInput, SafeAreaView, View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, TextInput, SafeAreaView, View, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import allStocks from '../utils/Suggestions';
+
 import Header from '../components/Header';
+import StockCard from '../components/StockCard';
 import { colors } from '../Styles';
 
 export default function SearchScreen({ navigation }) {
   const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState(allStocks);
 
   function getSuggestions(query) {
-    if (query === '') setSuggestions('');
-    else {
-      setSuggestions(allStocks.filter(suggestion => (
-        suggestion.name.toLowerCase().startsWith(query.toLowerCase()) ||
-        suggestion.code.toLowerCase().startsWith(query.toLowerCase())
-      )));
-    }
-  }
-
-  function renderItem(item) {
-    return (
-      <TouchableOpacity
-        style={styles.cardContainer}
-        onPress={() => navigation.navigate('ChartScreen', { symbol: item.code })}
-      >
-        <Text>{item.name}  {item.code}</Text>
-      </TouchableOpacity>
-    );
+    setSuggestions(allStocks.filter(suggestion => (
+      suggestion.name.toLowerCase().startsWith(query.toLowerCase()) ||
+      suggestion.code.toLowerCase().startsWith(query.toLowerCase())
+    )));
   }
 
   return (
@@ -50,7 +37,7 @@ export default function SearchScreen({ navigation }) {
         </View>
         <FlatList
           data={suggestions}
-          renderItem={({ item }) => renderItem(item)}
+          renderItem={({ item }) => <StockCard props={item} navigation={navigation} />}
           keyExtractor={item => item.code}
         />
       </SafeAreaView>

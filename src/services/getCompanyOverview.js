@@ -1,4 +1,4 @@
-const apiKey = 'C77RP7AVYDQ3KWVC'
+const apiKey = 'BZ4ESNSRHRYNWRZ4'
 
 async function getCompanyOverview(symbol) {
 

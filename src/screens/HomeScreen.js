@@ -3,21 +3,28 @@ import { StyleSheet, FlatList, SafeAreaView, View, ActivityIndicator } from 'rea
 import Card from '../components/Card';
 import Header from '../components/Header';
 import HighStockCard from '../components/HighStockCard';
+import { colors } from '../Styles';
 
 import getHigh from '../services/getHigh';
-
-import { colors } from '../Styles';
+import getFinanceData from '../services/api';
 
 export default function Home({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [high, setHigh] = useState({});
   const [low, setLow] = useState({});
+  const [stocks, setStocks] = useState({});
+  const [taxes, setTaxes] = useState({});
 
-  async function getHighStock() {
+  async function getData() {
     try {
       let [highInfo, lowInfo] = await getHigh();
       setHigh(highInfo);
       setLow(lowInfo);
+
+      let [currenciesData, stocksData, taxesData] = await getFinanceData();
+      setStocks(stocksData);
+      setTaxes(taxesData);
+
       setIsLoading(false);
 
     } catch (error) {
@@ -26,7 +33,7 @@ export default function Home({ navigation }) {
   }
 
   useEffect(() => {
-    getHighStock();
+    getData();
   }, []);
 
   return (
@@ -44,6 +51,11 @@ export default function Home({ navigation }) {
               <HighStockCard style={styles.stockInfoItem} data={high} />
               <HighStockCard style={styles.stockInfoItem} data={low} />
             </View>
+            <FlatList
+              data={stocks}
+              renderItem={({ item }) => <Card props={item} navigation={navigation} />}
+              keyExtractor={item => item.name}
+            />
           </SafeAreaView>
         )
       }

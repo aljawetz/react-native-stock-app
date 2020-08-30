@@ -1,9 +1,9 @@
 import * as React from 'react';
+import * as firebase from 'firebase';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import firebase from 'firebase';
 import { firebaseConfig } from './config';
 firebase.initializeApp(firebaseConfig);
 
@@ -15,7 +15,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-  //<Stack.Navigator initialRouteName={'LoadingScreen'} headerMode='none'>
   return (
     <>
       <StatusBar barStyle="dark-content" />
