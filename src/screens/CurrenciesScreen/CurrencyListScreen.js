@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
-import Header from '../components/Header';
-import CurrencyCard from '../components/CurrencyCard';
-import getFinanceData from '../services/api';
+import Header from '../../components/Header';
+import CurrencyCard from './components/CurrencyCard';
+import getFinanceData from '../../services/api';
 
-import { colors } from '../Styles';
+import { colors, headerHeight } from '../../Styles';
 
 export default function Home({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingTop: 20,
+    marginTop: headerHeight,
   }
 });

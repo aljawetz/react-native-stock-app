@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
-const userImage = require('../../assets/developer.png');
+const userImage = require('../../../../assets/developer.png');
 
-export default function CurrencyCard({ props, navigation }) {
+export default function Card({ props, navigation }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,13 +18,12 @@ export default function CurrencyCard({ props, navigation }) {
       ) : (
           <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('CurrencyChartScreen', { symbol: props.symbol })}
+            onPress={() => navigation.navigate('StockChartScreen', { symbol: props.symbol })}
           >
             <Avatar.Image source={userImage} style={styles.avatar} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>{props.name}</Text>
-              <Text>Buy: R${props.buy.toFixed(2)}</Text>
-              <Text style={{ color: props.variation > 0 ? 'green' : 'red' }}>{props.variation}%</Text>
+              <Text style={styles.price}>{props.symbol}</Text>
             </View>
           </TouchableOpacity>
         )

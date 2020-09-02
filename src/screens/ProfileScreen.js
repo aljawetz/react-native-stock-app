@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, Button, SafeAreaView } from 'react-native';
-import { colors } from '../Styles';
 import { Avatar } from 'react-native-paper';
+import { colors } from '../Styles';
 import Header from '../components/Header';
 
 import firebase from 'firebase';
@@ -23,16 +23,12 @@ export default function Profile({ navigation }) {
 
   function handleSignOut() {
     firebase.auth().signOut();
-    navigation.navigate('LoginNavigator');
+    navigation.navigate('AuthNavigator');
   }
 
   return (
     <>
-      <Header
-        title='Profile'
-        currentScreen='ProfileScreen'
-        navigation={navigation}
-      />
+      <Header title='Profile' />
       <SafeAreaView style={{ flex: 1 }}>
 
         <ScrollView style={styles.container}>

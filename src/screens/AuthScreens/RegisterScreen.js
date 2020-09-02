@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Styles } from '../Styles';
-import Input from '../components/Input'
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+
+import Input from './components/Input'
 import * as firebase from 'firebase';
 
 export default function RegisterScreen({ navigation }) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { colors } from '../Styles';
+import { colors } from '../../../Styles';
 
 export default function Input(props) {
   return (

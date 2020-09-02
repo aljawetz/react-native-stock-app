@@ -1,48 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, Button } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
-const firebase = require('firebase');
-// Required for side-effects
-require('firebase/firestore');
-
-const userImage = require('../../assets/developer.png');
-
+const userImage = require('../../../../assets/developer.png');
 export default function Card({ props, navigation }) {
-  //const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  /*
-  async function getStock() {
-    try {
-      let stockInfo = await getQuote(props.title);
-      setData({
-        title: props.title,
-        price: Number(stockInfo["Global Quote"]["05. price"]).toFixed(2),
-        change: stockInfo["Global Quote"]["10. change percent"],
-      })
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  */
+
   useEffect(() => {
-    //getStock();
-    //console.log(Object.getOwnPropertyNames(props));
     setIsLoading(false);
   }, []);
-
-  async function handleAddFavorites() {
-    firebase.firestore().collection("stocks").doc("favorites").set({
-      name: props.name,
-    })
-      .then(function () {
-        console.log("Document successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing document: ", error);
-      });
-  }
 
   return (
     <>
@@ -71,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flexDirection: 'row',
-    marginTop: 7,
+    marginBottom: 7,
     marginHorizontal: 7,
     padding: 10,
     borderRadius: 5,

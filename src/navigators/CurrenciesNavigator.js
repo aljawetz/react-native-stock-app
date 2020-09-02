@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import CurrenciesScreen from '../screens/CurrenciesScreen';
-import CurrencyChartScreen from '../screens/CurrencyChartScreen';
+import CurrenciesScreen from '../screens/CurrenciesScreen/CurrencyListScreen';
+import CurrencyChartScreen from '../screens/CurrenciesScreen/CurrencyChartScreen';
 
 const Stack = createStackNavigator();
 

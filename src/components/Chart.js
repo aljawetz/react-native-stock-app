@@ -5,13 +5,9 @@ import { LineChart } from "react-native-chart-kit";
 import { colors } from '../Styles'
 
 const chartConfig = {
-  backgroundGradientFrom: colors.background,
-  backgroundGradientTo: colors.background,
   backgroundGradientFromOpacity: 0,
   backgroundGradientToOpacity: 0,
-  color: (opacity = 1) => `rgba(50, 50, 50, ${opacity})`,
-  strokeWidth: 2,
-  barPercentage: 0.5,
+  color: () => colors.white,
 };
 
 export default function Chart({ stockData }) {
@@ -42,7 +38,6 @@ export default function Chart({ stockData }) {
             height={220}
             withDots={false}
             withInnerLines={false}
-            withOuterLines={false}
           />
         )
       }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../Styles';
 
 import HomeScreenNavigator from './HomeScreenNavigator';
 import CurrenciesNavigator from './CurrenciesNavigator';
@@ -10,11 +11,11 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function HomeTabNavigator() {
+export default function AppNavigator() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: 'black',
+        activeTintColor: colors.button,
         showLabel: false,
       }}
     >

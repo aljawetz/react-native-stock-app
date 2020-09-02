@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Styles } from '../Styles';
-import Input from '../components/Input';
+import { KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+
+import Input from './components/Input';
 import { Ionicons } from '@expo/vector-icons';
 
-import signInWithGoogleAsync from '../services/GoogleAuth';
+import signInWithGoogleAsync from './services/GoogleAuth';
 import * as firebase from 'firebase';
 
 export default function LoginScreen({ navigation }) {

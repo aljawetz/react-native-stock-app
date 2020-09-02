@@ -2,6 +2,9 @@ import { Platform, StyleSheet, Dimensions } from "react-native";
 
 export const { width, height } = Dimensions.get("window");
 
+export const headerHeight = 60;
+export const searchbarHeight = 45;
+
 export const SCREEN_WIDTH = width < height ? width : height;
 const numColumns = 2;
 

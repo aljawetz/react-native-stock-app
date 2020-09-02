@@ -8,7 +8,7 @@ export default function LoadingScreen({ navigation }) {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-      navigation.navigate(user ? 'HomeTabNavigator' : 'LoginNavigator');
+      navigation.navigate(user ? 'AppNavigator' : 'AuthNavigator');
     })
   }, []);
 

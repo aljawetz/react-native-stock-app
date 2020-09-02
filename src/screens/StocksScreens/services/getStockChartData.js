@@ -1,4 +1,4 @@
-import { apiKey } from '../../config';
+import { apiKey } from '../../../../config';
 
 const getLabels = data => {
   const processedData = data["Time Series (Daily)"]

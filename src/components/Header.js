@@ -1,11 +1,17 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, SCREEN_WIDTH } from '../Styles';
+import { colors, headerHeight } from '../Styles';
 
 export default function Header({ title, currentScreen, icon, navigateTo, navigation, backIcon }) {
 
 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+  /*
   return (
     <SafeAreaView style={styles.container}>
       {backIcon ? (
@@ -16,9 +22,9 @@ export default function Header({ title, currentScreen, icon, navigateTo, navigat
           <View style={styles.iconContainer}></View>
         )}
 
-      <TouchableOpacity style={styles.titleContainer} onPress={() => navigation.navigate(currentScreen)}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
-      </TouchableOpacity>
+      </View>
 
       {icon ? (
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate(navigateTo)}>
@@ -30,25 +36,21 @@ export default function Header({ title, currentScreen, icon, navigateTo, navigat
 
     </SafeAreaView>
   );
+  */
 }
-
-const numberGrid = 5;
-const itemWidth = SCREEN_WIDTH / numberGrid;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    height: 80,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: headerHeight,
+    elevation: 4,
+    zIndex: 100,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.header,
-  },
-  iconContainer: {
-    width: itemWidth,
-    alignItems: 'center',
-  },
-  titleContainer: {
-    width: itemWidth * 3,
-    alignItems: 'center',
   },
   title: {
     fontSize: 18,
