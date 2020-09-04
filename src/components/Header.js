@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, SCREEN_WIDTH } from '../Styles';
+import { colors, SCREEN_WIDTH, headerHeight } from '../Styles';
 
 export default function Header({ title, currentScreen, icon, navigateTo, navigation, backIcon }) {
 
@@ -37,7 +37,7 @@ const itemWidth = SCREEN_WIDTH / numberGrid;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 80,
+    height: headerHeight,
     backgroundColor: colors.header,
   },
   iconContainer: {

@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: 'center',
     justifyContent: "space-evenly",
-    marginVertical: 7,
   },
   container: {
     backgroundColor: colors.background,

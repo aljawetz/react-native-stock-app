@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, headerHeight } from '../../../Styles';
+import { colors } from '../../../Styles';
 
 import allStocks from '../services/Suggestions';
 
@@ -31,10 +31,6 @@ export default function SearchBar({ query, setQuery, setSuggestions }) {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top: headerHeight,
-    left: 0,
-    right: 0,
     backgroundColor: colors.background,
   },
   inputContainer: {
@@ -51,7 +47,6 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
     fontSize: 16,
   },
 });

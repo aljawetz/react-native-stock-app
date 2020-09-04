@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 
 import { colors } from '../../Styles';
+import Header from '../../components/Header';
 import ChartButtons from '../../components/ChartButtons';
 import Chart from '../../components/Chart';
 import CompanyOverview from './components/CompanyOverview';
@@ -11,7 +12,7 @@ import getCompanyOverview from './services/getCompanyOverview';
 
 const buttons = [3, 7, 21, 30, 90, 'MAX']
 
-export default function ChartScreen({ route }) {
+export default function ChartScreen({ route, navigation }) {
   const { symbol } = route.params;
   const [isLoading, setIsLoading] = useState(true);
   const [fullData, setFullData] = useState([]);
@@ -39,30 +40,37 @@ export default function ChartScreen({ route }) {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <>
+      <Header
+        title={symbol}
+        backIcon
+        navigation={navigation}
+      />
       {isLoading ? (
         <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
       ) : (
-          <ScrollView style={styles.container} >
-            <View style={styles.chartContainer}>
-              <View style={styles.buttonsContainer}>
-                {buttons.map((button, idx) =>
-                  <ChartButtons
-                    numberOfDays={button}
-                    idx={idx}
-                    setData={setData}
-                    fullData={fullData}
-                    selectedButtonIdx={selectedButtonIdx}
-                    setSelectedButtonIdx={setSelectedButtonIdx}
-                  />
-                )}
+          <SafeAreaView style={{ flex: 1 }}>
+            <ScrollView style={styles.container} >
+              <View style={styles.chartContainer}>
+                <View style={styles.buttonsContainer}>
+                  {buttons.map((button, idx) =>
+                    <ChartButtons
+                      numberOfDays={button}
+                      idx={idx}
+                      setData={setData}
+                      fullData={fullData}
+                      selectedButtonIdx={selectedButtonIdx}
+                      setSelectedButtonIdx={setSelectedButtonIdx}
+                    />
+                  )}
+                </View>
+                <Chart stockData={data} />
               </View>
-              <Chart stockData={data} />
-            </View>
-            <CompanyOverview data={overview} />
-          </ScrollView>
+              <CompanyOverview data={overview} />
+            </ScrollView>
+          </SafeAreaView >
         )}
-    </SafeAreaView >
+    </>
   );
 }
 

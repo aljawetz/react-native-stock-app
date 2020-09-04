@@ -59,9 +59,7 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: headerHeight,
     flex: 1,
     backgroundColor: colors.background,
-    paddingTop: 20,
   },
 });
