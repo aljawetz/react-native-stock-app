@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
-import allStocks from './services/Suggestions';
+import allStocks from '../../services/Suggestions';
 
 import Header from '../../components/Header';
 import SearchBar from './components/SearchBar';

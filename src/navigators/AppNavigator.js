@@ -7,7 +7,7 @@ import HomeScreenNavigator from './HomeScreenNavigator';
 import CurrenciesNavigator from './CurrenciesNavigator';
 import SearchNavigator from './SearchNavigator';
 
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 

@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../../Styles';
 
-import allStocks from '../services/Suggestions';
+import allStocks from '../../../services/Suggestions';
 
 export default function SearchBar({ query, setQuery, setSuggestions }) {
 
