@@ -29,8 +29,10 @@ export const colors = {
   placeholder: "#a0a0a0",
   //background: "#070061",
   background: "#D3D3D3",
+  loginBackground: 'white',
   button: '#007AFF',
   blue: "#3293fe",
+  errorMessage: 'red',
   orange: "#F97878",
   pink: "#EA3372"
 };

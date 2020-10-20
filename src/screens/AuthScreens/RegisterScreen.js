@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Image } from 'react-native';
 
 import Input from './components/Input'
+import Button from './components/Button';
+import { SCREEN_WIDTH, colors } from '../../Styles';
 import * as firebase from 'firebase';
+
+const image_src = '../../../assets/people-working.jpg'
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -20,13 +24,10 @@ export default function RegisterScreen({ navigation }) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
 
         <Text style={styles.title}>Hi! Register to get started</Text>
-        <View style={styles.errorMessageContainer}>
-          {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
-        </View>
 
         <Input
           title='Email:'
@@ -48,63 +49,36 @@ export default function RegisterScreen({ navigation }) {
           onChangeText={setPassword}
           secureTextEntry
         />
+        {errorMessage && <Text style={styles.errorMessageText}>{errorMessage}</Text>}
+        <Button title="Register" onPress={handleRegister} />
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
+        <Image style={styles.image} source={require(image_src)} />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
-
   container: {
+    backgroundColor: colors.loginBackground,
     flex: 1,
   },
+
   title: {
-    marginTop: 20,
     fontSize: 18,
     fontWeight: '400',
     textAlign: 'center',
+    marginTop: 25,
   },
-
-  errorMessageContainer: {
-    marginTop: 10,
-  },
-  errorMessage: {
+  errorMessageText: {
     textAlign: 'center',
-    color: 'red',
-    fontSize: 10,
+    color: colors.errorMessage,
+    fontSize: 12,
+    marginTop: 20,
   },
-
-  inputContainer: {
+  image: {
     marginTop: 30,
-    marginHorizontal: 30,
-  },
-  inputTitle: {
-    color: '#8A8F9E',
-    fontSize: 10,
-    textTransform: 'uppercase',
-  },
-  input: {
-    borderBottomColor: '#8A8F9E',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    height: 40,
-    fontSize: 15,
-    color: '#161F3D',
-  },
-
-  buttonContainer: {
-    marginTop: 30,
-    marginHorizontal: 30,
-    backgroundColor: '#E9446A',
-    borderRadius: 4,
-    height: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: '#FFF',
-    fontWeight: '500',
+    resizeMode: 'contain',
+    width: SCREEN_WIDTH,
+    height: 250,
   },
 })

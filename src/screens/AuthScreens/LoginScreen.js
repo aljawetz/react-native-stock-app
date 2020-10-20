@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Image } from 'react-native';
 
 import Input from './components/Input';
+import Button from './components/Button';
 import { Ionicons } from '@expo/vector-icons';
+import { SCREEN_WIDTH, colors } from '../../Styles';
 
 import signInWithGoogleAsync from './services/GoogleAuth';
 import * as firebase from 'firebase';
 
+const image_src = '../../../assets/mobile.jpg';
+
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   function handleLogin() {
     firebase.auth().signInWithEmailAndPassword(email, password).catch(error => setErrorMessage(error.message));
@@ -22,20 +26,17 @@ export default function LoginScreen({ navigation }) {
 
   function handleGoogleLogin() {
     if (signInWithGoogleAsync) {
-      navigation.navigate('MainNavigator');
+      navigation.navigate('AppNavigator');
     } else
       navigation.navigate('RegisterScreen');
   }
 
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-
-        <Text style={styles.title}>Welcome to the App</Text>
-
-        <View style={styles.errorMessageContainer}>
-          {errorMessage && <Text style={styles.errorMessageText}>{errorMessage}</Text>}
-        </View>
+      <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
+        <Text style={styles.title}>Welcome to Stock App</Text>
+        <Image style={styles.image} source={require(image_src)} />
 
         <Input
           title='Email:'
@@ -50,10 +51,8 @@ export default function LoginScreen({ navigation }) {
           onChangeText={setPassword}
           secureTextEntry
         />
-
-        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        {errorMessage && <Text style={styles.errorMessageText}>{errorMessage}</Text>}
+        <Button title="Login" onPress={handleLogin} />
 
         <View style={styles.logoContainer}>
           <TouchableOpacity onPress={handleGoogleLogin}>
@@ -80,61 +79,32 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
 
   container: {
+    backgroundColor: colors.loginBackground,
     flex: 1,
     justifyContent: 'center',
   },
-
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '400',
     textAlign: 'center',
+    marginTop: 20,
   },
-
-  errorMessageContainer: {
-    marginHorizontal: 20,
-    marginTop: 30,
+  image: {
+    width: SCREEN_WIDTH,
+    height: 180,
+    marginTop: 80,
+    marginBottom: 20,
   },
-
   errorMessageText: {
     textAlign: 'center',
-    color: 'red',
+    color: colors.errorMessage,
+    marginTop: 7.5,
     fontSize: 12,
-  },
-
-  inputContainer: {
-    marginTop: 30,
-    marginHorizontal: 30,
-  },
-  inputTitle: {
-    color: '#8A8F9E',
-    fontSize: 10,
-    textTransform: 'uppercase',
-  },
-  input: {
-    borderBottomColor: '#8A8F9E',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    height: 40,
-    fontSize: 15,
-    color: '#161F3D',
-  },
-
-  buttonContainer: {
-    marginTop: 30,
-    marginHorizontal: 30,
-    backgroundColor: '#E9446A',
-    borderRadius: 4,
-    height: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: '#FFF',
-    fontWeight: '500',
   },
 
   logoContainer: {
     flexDirection: "row",
-    marginTop: 30,
+    marginTop: 20,
     marginHorizontal: 30,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -150,6 +120,6 @@ const styles = StyleSheet.create({
   },
   registerHighlight: {
     fontWeight: '500',
-    color: '#E9446A',
+    color: colors.blue,
   },
 })

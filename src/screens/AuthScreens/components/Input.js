@@ -23,16 +23,16 @@ export default function Input(props) {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 30,
+    marginVertical: 10,
     marginHorizontal: 30,
   },
   inputTitle: {
-    color: colors.inputTitle,
+    color: 'black',
     fontSize: 10,
     textTransform: 'uppercase',
   },
   input: {
-    borderBottomColor: colors.inputTitle,
+    borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     fontSize: 15,
