@@ -20,7 +20,7 @@ export default function Card({ props, navigation }) {
             style={styles.container}
             onPress={() => navigation.navigate('StockChartScreen', { symbol: props.symbol })}
           >
-            <Avatar.Image source={userImage} style={styles.avatar} />
+            <Avatar.Image source={props.image || userImage} style={styles.avatar} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>{props.name}</Text>
               <Text style={styles.price}>{props.symbol}</Text>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flexDirection: 'row',
-    marginTop: 7,
+    marginBottom: 7,
     marginHorizontal: 7,
     padding: 10,
     borderRadius: 5,

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
-import Card from './components/Card';
+import { StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
+
 import Header from '../../components/Header';
 import StockCard from './components/HighStockCard';
-import { colors, headerHeight } from '../../Styles';
+import StockGrid from './components/StockGrid';
+import { colors } from '../../Styles';
 
 import getHigh from './services/getHigh';
 import getFinanceData from '../../services/api';
@@ -46,11 +47,7 @@ export default function Home({ navigation }) {
       ) : (
           <SafeAreaView style={styles.container}>
             <StockCard high={high} low={low} />
-            <FlatList
-              data={stocks}
-              renderItem={({ item }) => <Card props={item} navigation={navigation} />}
-              keyExtractor={item => item.name}
-            />
+            <StockGrid data={stocks} navigation={navigation} />
           </SafeAreaView>
         )}
     </>

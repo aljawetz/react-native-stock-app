@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SearchScreen from '../screens/StocksScreens/SearchScreen';
 import StockChartScreen from '../screens/StocksScreens/StockChartScreen';
+import { colors } from '../Styles';
 
 const Stack = createStackNavigator();
 

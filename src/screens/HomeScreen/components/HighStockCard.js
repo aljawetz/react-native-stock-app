@@ -24,7 +24,7 @@ const StockCard = ({ data }) => (
 
 const styles = StyleSheet.create({
   stockInfoContainer: {
-    flex: 1,
+    marginTop: 7,
     flexDirection: "row",
     alignItems: 'center',
     justifyContent: "space-evenly",

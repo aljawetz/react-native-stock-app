@@ -10,7 +10,7 @@ import CompanyOverview from './components/CompanyOverview';
 import getStockChartData from './services/getStockChartData';
 import getCompanyOverview from './services/getCompanyOverview';
 
-const buttons = [3, 7, 21, 30, 90, 'MAX']
+const buttons = [7, 14, 21, 30, 90, 'YT']
 
 export default function ChartScreen({ route, navigation }) {
   const { symbol } = route.params;
@@ -25,6 +25,7 @@ export default function ChartScreen({ route, navigation }) {
       let [labels, stockData] = await getStockChartData(symbol);
       let overviewData = await getCompanyOverview(symbol);
 
+      overviewData['Price'] = fullData[fullData.length - 1]
       setFullData(stockData);
       setData(stockData);
       setOverview(overviewData);
@@ -59,6 +60,7 @@ export default function ChartScreen({ route, navigation }) {
                       idx={idx}
                       setData={setData}
                       fullData={fullData}
+                      key={idx}
                       selectedButtonIdx={selectedButtonIdx}
                       setSelectedButtonIdx={setSelectedButtonIdx}
                     />

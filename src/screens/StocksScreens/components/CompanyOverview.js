@@ -14,6 +14,7 @@ export default function CompanyOverview({ data }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{data.Name}</Text>
+      <Text style={styles.title}>{data.Price} USD</Text>
 
       {renderItem("Exchange ", data.Exchange)}
       {renderItem("Industry ", data.Industry)}

@@ -1,56 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Avatar } from 'react-native-paper';
+import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { colors, SCREEN_WIDTH } from '../../../Styles';
 
-const userImage = require('../../../../assets/developer.png');
-export default function Card({ props, navigation }) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+export default function Card({ props }) {
 
   return (
-    <>
-      {isLoading ? (
-        <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
-      ) : (
-          <TouchableOpacity
-            style={styles.container}
-            onPress={() => navigation.navigate('StockChartScreen', { symbol: props.symbol })}
-          >
-            <Avatar.Image source={userImage} style={styles.avatar} />
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{props.name}</Text>
-              <Text style={styles.price}>{props.location}</Text>
-              <Text style={styles.price}>{props.points}</Text>
-              <Text style={{ color: props.variation > 0 ? 'green' : 'red' }}>{props.variation}%</Text>
-            </View>
-          </TouchableOpacity>
-        )
-      }
-    </>
+    <View style={styles.container}>
+      <Text style={styles.text}>{props.name.split(" ")[0]}</Text>
+      <Text style={styles.text}>{props.points}</Text>
+      <Text style={[styles.text, { color: props.variation > 0 ? 'green' : 'red' }]}>{props.variation}%</Text>
+    </View>
   );
 }
 
+const numberGrid = 3;
+const itemWidth = SCREEN_WIDTH / numberGrid;
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     flexDirection: 'row',
-    marginBottom: 7,
-    marginHorizontal: 7,
-    padding: 10,
-    borderRadius: 5,
-  },
-  avatar: {
-    backgroundColor: 'black',
-  },
-  textContainer: {
+    marginBottom: 10,
     marginLeft: 20,
   },
-  title: {
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    marginBottom: 12,
+  text: {
+    width: itemWidth,
   },
 })
