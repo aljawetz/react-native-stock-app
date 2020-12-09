@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions, ActivityIndicator } from 'react-native';
+import { Dimensions, ActivityIndicator } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 
+import { colors } from '../Styles'
+
 const chartConfig = {
-  backgroundGradientFrom: "#eee",
-  backgroundGradientTo: "#eee",
   backgroundGradientFromOpacity: 0,
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `rgba(50, 50, 50, ${opacity})`,
-  strokeWidth: 2,
-  barPercentage: 0.5,
+  backgroundGradientToOpacity: 0,
+  color: () => colors.white,
 };
 
 export default function Chart({ stockData }) {
@@ -29,22 +27,20 @@ export default function Chart({ stockData }) {
   }, [stockData]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <>
       {isLoading ? (
         <ActivityIndicator style={{ flex: 1, alignContent: 'center' }} />
       ) : (
           <LineChart
             data={data}
             chartConfig={chartConfig}
-            width={Dimensions.get('window').width - 16}
+            width={Dimensions.get('window').width - 10}
             height={220}
             withDots={false}
-            withVerticalLabels={false}
-            withHorizontalLabels={false}
-            withOuterLines={false}
             withInnerLines={false}
           />
-        )}
-    </View>
+        )
+      }
+    </>
   );
 }

@@ -2,6 +2,9 @@ import { Platform, StyleSheet, Dimensions } from "react-native";
 
 export const { width, height } = Dimensions.get("window");
 
+export const headerHeight = 80;
+export const searchbarHeight = 45;
+
 export const SCREEN_WIDTH = width < height ? width : height;
 const numColumns = 2;
 
@@ -26,7 +29,10 @@ export const colors = {
   placeholder: "#a0a0a0",
   //background: "#070061",
   background: "#D3D3D3",
+  loginBackground: 'white',
+  button: '#007AFF',
   blue: "#3293fe",
+  errorMessage: 'red',
   orange: "#F97878",
   pink: "#EA3372"
 };

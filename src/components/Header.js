@@ -1,10 +1,9 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, SCREEN_WIDTH } from '../Styles';
+import { colors, SCREEN_WIDTH, headerHeight } from '../Styles';
 
-export default function Header({ title, currentScreen, icon, navigateTo, navigation, backIcon }) {
-
+export default function Header({ title, icon, navigateTo, navigation, backIcon }) {
 
   return (
     <SafeAreaView style={styles.container}>
@@ -16,9 +15,9 @@ export default function Header({ title, currentScreen, icon, navigateTo, navigat
           <View style={styles.iconContainer}></View>
         )}
 
-      <TouchableOpacity style={styles.titleContainer} onPress={() => navigation.navigate(currentScreen)}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
-      </TouchableOpacity>
+      </View>
 
       {icon ? (
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate(navigateTo)}>
@@ -38,7 +37,7 @@ const itemWidth = SCREEN_WIDTH / numberGrid;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 80,
+    height: headerHeight,
     backgroundColor: colors.header,
   },
   iconContainer: {

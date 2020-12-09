@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import CurrenciesScreen from '../screens/CurrenciesScreen';
-import ChartScreen from '../screens/ChartScreen';
+import CurrenciesScreen from '../screens/CurrenciesScreen/CurrencyListScreen';
+import CurrencyChartScreen from '../screens/CurrenciesScreen/CurrencyChartScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,8 +17,8 @@ export default function CurrenciesNavigator() {
         component={CurrenciesScreen}
       />
       <Stack.Screen
-        name="ChartScreen"
-        component={ChartScreen}
+        name="CurrencyChartScreen"
+        component={CurrencyChartScreen}
         initialParams={{ symbol: 'IBM' }}
       />
     </Stack.Navigator>

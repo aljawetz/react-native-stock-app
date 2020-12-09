@@ -11,8 +11,8 @@ async function getFinanceData() {
     let taxes = data["results"]["taxes"][0];
 
     currencies.shift();
-    currencies = currencies.map(currencie => {
-      let temp = { ...currencie };
+    currencies = currencies.map(currency => {
+      let temp = { ...currency };
       return { "symbol": temp[0], ...temp[1] };
     });
 
