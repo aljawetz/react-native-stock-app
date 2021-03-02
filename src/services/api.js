@@ -1,4 +1,4 @@
-const apiKey = '474d9395'
+const apiKey = 'XXXXX'
 const url = `https://api.hgbrasil.com/finance?key=${apiKey}`;
 
 async function getFinanceData() {
